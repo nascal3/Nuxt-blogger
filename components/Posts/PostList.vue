@@ -1,11 +1,13 @@
 <template>
   <section class="post-list">
     <post-preview
-      id="1"
+      v-for="post in posts"
+      :key="post.id"
+      :id="post.id"
       :is-admin="isAdmin"
-      thumbnail="https://sendy-go.s3-eu-west-1.amazonaws.com/inventory_organized/Naivas/n3985.jpg"
-      title="Hi there man"
-      previewText="This is the preview text"
+      :thumbnail="post.thumbnail"
+      :title="post.title"
+      :previewText="post.preview"
     />
   </section>
 </template>
@@ -22,6 +24,10 @@
         type: Boolean,
         default: false
       },
+      posts: {
+        type: Array,
+        required: true
+      }
     },
   }
 </script>

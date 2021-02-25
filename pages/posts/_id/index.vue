@@ -1,12 +1,12 @@
 <template>
     <div class="single-post-page">
       <section class="post">
-        <h1 class="post-title">Title Post</h1>
+        <h1 class="post-title">{{loadedPosts.title}}</h1>
         <div class="post-details">
-          <div class="post-detail">Last updated on</div>
-          <div class="post-detail">Written by lorem</div>
+          <div class="post-detail">Last updated on: {{loadedPosts.updatedDate}}</div>
+          <div class="post-detail">Written by: {{loadedPosts.author}}</div>
         </div>
-        <p class="post-content">Content of post</p>
+        <p class="post-content">{{loadedPosts.content}}</p>
       </section>
       <section class="post-feedback">
         <p>Give your feedback to <a href="mailto:feedback@mail.com">feedback@mail.com</a></p>
@@ -16,7 +16,21 @@
 
 <script>
     export default {
-        name: "index"
+        asyncData(context, callback) {
+          setTimeout(() => {
+            callback(null, {
+              loadedPosts: {
+                id: 1,
+                title: `Test Title (ID: ${context.params.id})`,
+                preview: "preview text",
+                author: "Blah Ban",
+                updatedDate: new Date(),
+                content: "lorem ipsum lots of text",
+                thumbnail: "https://sendy-go.s3-eu-west-1.amazonaws.com/inventory_organized/Naivas/n3985.jpg"
+              }
+            })
+          },1000)
+        }
     }
 </script>
 
