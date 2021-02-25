@@ -8,39 +8,16 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import PostList from "@/components/Posts/PostList";
   export default {
     components: {
       PostList
     },
-    asyncData( context) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve( {
-            loadedPosts: [
-              {
-                id: 1,
-                title: "test title",
-                preview: "preview text",
-                thumbnail: "https://sendy-go.s3-eu-west-1.amazonaws.com/inventory_organized/Naivas/n3985.jpg"
-              },
-              {
-                id: 2,
-                title: "test title  two",
-                preview: "preview text two",
-                thumbnail: "https://sendy-go.s3-eu-west-1.amazonaws.com/inventory_organized/Naivas/n3985.jpg"
-              },
-            ]
-          })
-        }, 1500)
-      }).then( data => {
-        return data
-      }).catch(e => {
-        context.error(e)
+    computed: {
+      ...mapGetters({
+        loadedPosts: 'loadedPosts'
       })
-    },
-    created() {
-
     }
   }
 </script>
