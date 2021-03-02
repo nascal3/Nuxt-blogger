@@ -15,23 +15,19 @@
 </template>
 
 <script>
-    export default {
-        asyncData(context, callback) {
-          setTimeout(() => {
-            callback(null, {
-              loadedPosts: {
-                id: 1,
-                title: `Test Title (ID: ${context.params.id})`,
-                preview: "preview text",
-                author: "Blah Ban",
-                updatedDate: new Date(),
-                content: "lorem ipsum lots of text",
-                thumbnail: "https://sendy-go.s3-eu-west-1.amazonaws.com/inventory_organized/Naivas/n3985.jpg"
-              }
-            })
-          },1000)
-        }
-    }
+  import axios from "axios";
+
+  export default {
+      asyncData(context) {
+        return axios.get(`https://nuxt-blogger-e2001-default-rtdb.firebaseio.com/posts/${context.params.id}.json`)
+        .then(res => {
+          return {
+            loadedPosts: res.data
+          }
+        })
+        .catch(e => context.error(e))
+      }
+  }
 </script>
 
 <style scoped>
